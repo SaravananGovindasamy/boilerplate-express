@@ -7,6 +7,29 @@ absolutePath = __dirname + '/views/index.html'
 
 console.log('Hello World');
 
+app.get('/:word/echo', (req, res) => {
+  // Extract the word from req.params
+  const { word } = req.params;
+  
+  // Respond with a JSON object containing the echoed word
+  res.json({ echo: word });
+});
+
+/*
+
+// Middleware function to add current time to req.time
+const addTimeMiddleware = (req, res, next) => {
+  req.time = new Date().toString();
+  next();
+};
+
+// Route definition with chained middleware and final handler
+app.get('/now', addTimeMiddleware, (req, res) => {
+  res.json({ time: req.time });
+});
+*/
+
+/*
 // Logger middleware function
 const loggerMiddleware = (req, res, next) => {
   // Extract information from the request object
@@ -27,6 +50,7 @@ app.use(loggerMiddleware);
 app.get('/json', (req, res) => {
   res.json({"message": "Hello json"});
 });
+*/
 
 /*
 app.get('/json', (req, res) => {
@@ -43,3 +67,41 @@ app.get('/', (req, res) => {
     res.sendFile(absolutePath);
   });
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ module.exports = app;
