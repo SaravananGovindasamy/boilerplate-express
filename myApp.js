@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
 
@@ -7,6 +8,30 @@ absolutePath = __dirname + '/views/index.html'
 
 console.log('Hello World');
 
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Define the route handler for GET /name
+// This handler retrieves first and last name from query parameters
+const getNameHandler = (req, res) => {
+    const { first, last } = req.query;
+    const fullName = `${first} ${last}`;
+    res.json({ name: fullName });
+  };
+  
+  // Define the route handler for POST /name
+  // This handler expects first and last name in the request body
+  const postNameHandler = (req, res) => {
+    const { first, last } = req.body;
+    const fullName = `${first} ${last}`;
+    res.json({ name: fullName });
+  };
+  
+  // Mount the route handlers for GET and POST requests to /name
+  app.route('/name')
+    .get(getNameHandler)
+    .post(postNameHandler);
+
+/*
 app.get('/:word/echo', (req, res) => {
   // Extract the word from req.params
   const { word } = req.params;
@@ -14,6 +39,8 @@ app.get('/:word/echo', (req, res) => {
   // Respond with a JSON object containing the echoed word
   res.json({ echo: word });
 });
+*/
+
 
 /*
 
@@ -52,7 +79,7 @@ app.get('/json', (req, res) => {
 });
 */
 
-/*
+
 app.get('/json', (req, res) => {
     let message = "Hello json";
     if (process.env.MESSAGE_STYLE  === 'uppercase') {
@@ -66,7 +93,7 @@ app.use('/public', express.static(__dirname + '/public'))
 app.get('/', (req, res) => {
     res.sendFile(absolutePath);
   });
-*/
+
 
 
 
